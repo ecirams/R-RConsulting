@@ -1,0 +1,33 @@
+# Auto detect text files and normalize line endings to LF
+* text=auto
+
+# HTML
+*.html text eol=lf
+
+# CSS and SCSS
+*.css text eol=lf
+*.scss text eol=lf
+
+# JavaScript
+*.js text eol=lf
+*.json text eol=lf
+
+# Markdown
+*.md text eol=lf
+
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+
+# Documents
+*.pdf binary
+*.doc binary
+*.docx binary
+*.xls binary
+*.xlsx binary
