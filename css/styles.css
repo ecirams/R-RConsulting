@@ -524,6 +524,19 @@ a:hover {
   font-size: 1.2rem;
 }
 
+/* Approach list styling for the About section */
+.approach-list {
+  list-style: decimal inside;
+  margin: 2rem 0 2rem 0;
+  padding-left: 1rem;
+  color: var(--text-dark);
+}
+
+.approach-list li {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
 /* Execution Model Section */
 .execution {
   padding: 5rem 0;
