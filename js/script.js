@@ -276,6 +276,61 @@ if (ctaButton) {
   });
 }
 
+// (Removed 'Request Sample Plan' UI) - no handler needed
+
+// Download Capability Statement - open modal
+const downloadCapBtn = document.getElementById("downloadCapBtn");
+const downloadModal = document.getElementById("downloadModal");
+if (downloadCapBtn && downloadModal) {
+  downloadCapBtn.addEventListener("click", function () {
+    // Prefill request type for analytics/backend as 'one_page_about_us'
+    const requestInput = document.getElementById("requestType");
+    if (requestInput) requestInput.value = "one_page_about_us";
+    downloadModal.setAttribute("aria-hidden", "false");
+    const emailEl = document.getElementById("downloadEmail");
+    if (emailEl) emailEl.focus();
+    trackEvent("engagement", "cta_download_one_page_about_us", "hero_section");
+  });
+}
+
+// Modal close handling
+const modalCloses = document.querySelectorAll(".modal-close");
+modalCloses.forEach((btn) =>
+  btn.addEventListener("click", function (e) {
+    const modal = e.target.closest(".modal");
+    if (modal) modal.setAttribute("aria-hidden", "true");
+  })
+);
+
+// Download form handling
+const downloadForm = document.getElementById("downloadForm");
+if (downloadForm) {
+  downloadForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const email = document.getElementById("downloadEmail").value;
+    if (!isValidEmail(email)) {
+      showNotification("Please enter a valid email address.", "error");
+      return;
+    }
+    // Simulate sending data, then start download
+    showNotification(
+      "Thanks! Your capability statement is downloading now.",
+      "success"
+    );
+    const link = document.createElement("a");
+    // Update to the official file name for the One Page About Us
+    const fileName = "R&R_Conulting_About_Us_V1.pdf";
+    link.href = `assets/${encodeURIComponent(fileName)}`;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    const modal = document.getElementById("downloadModal");
+    if (modal) modal.setAttribute("aria-hidden", "true");
+    downloadForm.reset();
+  });
+}
+
 // Social Share Helper
 function shareOnSocial(
   platform,
