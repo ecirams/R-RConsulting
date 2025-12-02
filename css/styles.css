@@ -405,7 +405,7 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  align-items: center;
+  align-items: stretch; /* Ensure image height matches content */
   margin-bottom: 4rem;
 }
 
@@ -435,8 +435,21 @@ a:hover {
 
 .about-image img {
   width: 100%;
+  height: 100%;
   border-radius: 12px;
   box-shadow: var(--shadow-lg);
+  object-fit: cover; /* Fill the container while keeping aspect ratio */
+}
+
+/* Make about-cards span full height to align with the image */
+.about-text .about-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-text .about-card p {
+  flex: 1 1 auto; /* Allow text to fill space consistently */
 }
 
 .founders-section {
@@ -485,15 +498,7 @@ a:hover {
 }
 
 .founder-bullets {
-  list-style: disc;
-  margin-left: 1.25rem;
-  color: var(--text-dark);
-  padding-left: 0.5rem;
-}
-
-.founder-bullets li {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
+  display: none; /* We removed the detailed bullets for founder bios */
 }
 
 .founder-image img {
