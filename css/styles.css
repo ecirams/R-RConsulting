@@ -1168,9 +1168,16 @@ a:hover {
 
 .footer-content {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-bottom: 2rem;
+  align-items: left;
+  justify-items: start;
+}
+
+.footer-section:last-child {
+  justify-self: end;
+  text-align: left;
 }
 
 .footer-section h4 {
@@ -1220,6 +1227,18 @@ a:hover {
   text-align: center;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .footer-section:last-child {
+    justify-self: start;
+    text-align: left;
+  }
 }
 
 /* Utility Classes */
