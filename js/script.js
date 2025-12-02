@@ -40,11 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
 // Contact Form Handler
 function handleContactForm(e) {
   e.preventDefault();
-
   const formData = new FormData(this);
-  const name = this.querySelector('input[type="text"]').value;
-  const email = this.querySelector('input[type="email"]').value;
-  const message = this.querySelector("textarea").value;
+  const name = this.querySelector("#contactName")
+    ? this.querySelector("#contactName").value.trim()
+    : "";
+  const email = this.querySelector("#contactEmail")
+    ? this.querySelector("#contactEmail").value.trim()
+    : "";
+  const message = this.querySelector("#contactMessage")
+    ? this.querySelector("#contactMessage").value.trim()
+    : "";
   const attachments = this.querySelector("#attachments").files[0];
 
   // Verify reCAPTCHA is checked (optional - validation depends on backend)
@@ -55,23 +60,76 @@ function handleContactForm(e) {
     return;
   }
 
-  // Here you would typically send this data to your server
-  // For now, we'll show a success message
-  console.log("Form Data:", {
-    name,
-    email,
-    message,
-    attachments: attachments ? attachments.name : "None",
-    recaptcha: recaptchaResponse,
-  });
+  // Here you would typically send this data to your server or a 3rd-party service.
+  // We support EmailJS (https://www.emailjs.com/) for client-side sending.
+  const EMAILJS_ENABLED = false; // Set to true after adding your EmailJS credentials below.
+  const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // e.g., 'service_xxx'
+  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // e.g., 'template_xxx'
+  const EMAILJS_USER_ID = "YOUR_USER_ID"; // initialize EmailJS if using it
 
-  // Show success message
-  showNotification(
-    "Thank you! Your message has been sent successfully. We will get back to you soon.",
-    "success"
+  const payload = {
+    name: name,
+    email: email,
+    message: message,
+    request_type: document.getElementById("requestType")
+      ? document.getElementById("requestType").value
+      : "general",
+  };
+
+  // If EmailJS is configured and available, use it.
+  if (
+    EMAILJS_ENABLED &&
+    typeof emailjs !== "undefined" &&
+    EMAILJS_SERVICE_ID &&
+    EMAILJS_TEMPLATE_ID
+  ) {
+    try {
+      if (EMAILJS_USER_ID && typeof emailjs.init === "function") {
+        emailjs.init(EMAILJS_USER_ID);
+      }
+      emailjs
+        .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload)
+        .then(() => {
+          showNotification(
+            "Thank you! Your message has been sent successfully.",
+            "success"
+          );
+          contactForm.reset();
+          grecaptcha.reset();
+        })
+        .catch((err) => {
+          console.error("EmailJS send error:", err);
+          showNotification(
+            "There was an error sending your message. Please try again later.",
+            "error"
+          );
+        });
+      return;
+    } catch (err) {
+      console.warn("EmailJS error", err);
+    }
+  }
+
+  // Fallback: open the user's mail client using mailto:. This requires the user to confirm sending.
+  const to = "rrconsulting2025@gmail.com";
+  const subject = encodeURIComponent(
+    `Contact Request from ${name || "Website Visitor"}`
   );
+  const bodyLines = [
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Request Type: ${payload.request_type}`,
+    "",
+    "Message:",
+    message || "(no message provided)",
+  ];
+  const mailtoUrl = `mailto:${encodeURIComponent(
+    to
+  )}?subject=${subject}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+  window.location.href = mailtoUrl;
 
-  // Reset form
+  // If we reached here, the fallback mailto has been opened and the user will need to send it.
+  // Optionally, clear the form and reset reCAPTCHA.
   this.reset();
   grecaptcha.reset();
 }
@@ -319,8 +377,8 @@ if (downloadForm) {
     );
     const link = document.createElement("a");
     // Update to the official file name for the One Page About Us
-        const fileName = "R&R_Consulting_About_Us_V1.pdf";
-    link.href = `assets/${encodeURIComponent(fileName)}`;
+    const fileName = "R&R_Consulting_About_Us_V1.pdf";
+    link.href = `assets/doc/${encodeURIComponent(fileName)}`;
     link.download = fileName;
     document.body.appendChild(link);
     link.click();
