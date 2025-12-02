@@ -16,6 +16,11 @@
       Confidence
     </title>
     <link rel="stylesheet" href="css/styles.css" />
+    <!-- Optional: EmailJS library (only initialize if you configure EmailJS in js/script.js) -->
+    <script
+      type="text/javascript"
+      src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"
+    ></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </head>
   <body>
@@ -37,9 +42,9 @@
             <li><a href="#home">Home</a></li>
             <li><a href="#about">About Us</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#execution">Execution Model</a></li>
+            <li><a href="#insights">Insights</a></li>
             <li><a href="#belief">Our Belief</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#contact">Contact Us</a></li>
           </ul>
           <div class="hamburger">
             <span></span>
@@ -53,9 +58,11 @@
     <!-- Hero Section -->
     <section id="home" class="hero">
       <div class="hero-overlay"></div>
-        <div class="hero-content">
+      <div class="hero-content">
         <p class="hero-subtitle hero-line1">Advisory & Consulting Services</p>
-        <p class="hero-subtitle hero-line2">for Strategic, Business, Operational and People Excellence.</p>
+        <p class="hero-subtitle hero-line2">
+          for Strategic, Business, Operational and People Excellence.
+        </p>
         <button id="downloadCapBtn" class="cta-button">
           Get One Page About Us
         </button>
@@ -95,7 +102,7 @@
     <!-- About Us Section -->
     <section id="about" class="about">
       <div class="container">
-                <div class="section-header">
+        <div class="section-header">
           <h2>About Us</h2>
           <p class="section-subtitle">
             Transforming Organizations, Building Excellence
@@ -117,8 +124,11 @@
             </div>
             <div class="about-card">
               <h3>Our Approach</h3>
-              <p>Co-opt with Customers and Teams in:</p>
-              <ol class="approach-list">
+              <p>
+                Diagnosing root causes across Process, People, Practice and
+                Performance
+              </p>
+              <ul class="approach-list">
                 <li>
                   Diagnosing root causes across Process, People, Practice and
                   Performance
@@ -135,7 +145,7 @@
                   Supporting teams in implementing the frameworks and solutions
                   towards measurable outcomes
                 </li>
-              </ol>
+              </ul>
               <!--           
                 Collaborative, data-driven, and customized solutions that
                 address your unique business challenges while building internal
@@ -155,22 +165,27 @@
           <div class="founders-grid">
             <div class="founder-card">
               <div class="founder-image">
-                <img src="assets/raju-rr-consulting.jpg" alt="Raju - Managing Director" />
+                <img
+                  src="assets/raju-rr-consulting.jpg"
+                  alt="Raju - Managing Director"
+                />
               </div>
               <h4>Raju</h4>
-                <p class="founder-role">Managing Director</p>
+              <p class="founder-role">Managing Director</p>
               <p class="founder-bio">
                 A seasoned leader with extensive global experience in leadership
                 roles including Chief Delivery Quality Officer and Global
-                Quality Head across IGATE, Wipro, and Ericsson. Raju has enabled
+                Quality Head in leading organizations. Raju has enabled
                 organizations and business units to improve revenue, operating
                 margin, and customer & people satisfaction.
               </p>
-              
             </div>
             <div class="founder-card">
               <div class="founder-image">
-                <img src="assets/rams-rr-consulting.jpg" alt="Rams - Director" />
+                <img
+                  src="assets/rams-rr-consulting.jpg"
+                  alt="Rams - Director"
+                />
               </div>
               <h4>Rams</h4>
               <p class="founder-role">Director</p>
@@ -181,7 +196,6 @@
                 and mentored teams and student communities towards improved
                 outcomes.
               </p>
-              
             </div>
           </div>
         </div>
@@ -193,7 +207,7 @@
       <div class="container">
         <div class="section-header">
           <h2>Our Services</h2>
-          <p class="section-subtitle">Three Pillars of Excellence</p>
+          <p class="section-subtitle">Pillars of Excellence</p>
         </div>
 
         <div class="services-grid">
@@ -208,6 +222,7 @@
             <div class="service-content">
               <h3>Strategic Drive</h3>
               <p class="service-highlight">
+                <br />
                 Assessment & Implementation for Excellence
               </p>
               <ul class="service-list">
@@ -278,71 +293,21 @@
       </div>
     </section>
 
-    <!-- Execution Model Section -->
-    <section id="execution" class="execution">
+    <!-- Insights Section (Coming soon placeholder) -->
+    <section id="insights" class="insights">
       <div class="container">
         <div class="section-header">
-          <h2>Our Execution Model</h2>
+          <h2>Insights</h2>
           <p class="section-subtitle">
-            Proven Methodology for Sustainable Results
+            A place for our research, observations and insights.
           </p>
         </div>
-
-        <div class="execution-model">
-          <div class="execution-step">
-            <div class="step-number">01</div>
-            <h3>Expectation Understanding & Agreement</h3>
-            <p>
-              Comprehensive expectation understanding and formal agreement
-              establishment to ensure clear project scope, objectives, and
-              deliverables alignment.
-              <!-- Clear alignment on objectives, scope, deliverables, and success
-              metrics to ensure shared understanding and commitment. -->
-            </p>
+        <div class="insights-content">
+          <div class="insights-message">
+            <h3>Coming soon...</h3>
+            <p>We're preparing insights and resources</p>
+            <p>to help you make informed decisions. Stay tuned!</p>
           </div>
-          <div class="execution-arrow">→</div>
-          <div class="execution-step">
-            <div class="step-number">02</div>
-            <h3>Current State Analysis & Approach</h3>
-            <p>
-              Thorough current state analysis and approach sign-off, followed by
-              process fine-tuning and future process finalization.
-              <!-- Comprehensive assessment of existing processes, capabilities, and
-              gaps to establish a clear baseline for transformation. -->
-            </p>
-          </div>
-          <div class="execution-arrow">→</div>
-          <div class="execution-step">
-            <div class="step-number">03</div>
-            <h3>Implementation & Process Control</h3>
-            <p>
-              Continuous Implementation, process control and stabilization with
-              regular communication and process sign-off for stakeholders’
-              alignment.
-              <!-- Execute planned initiatives with rigorous monitoring, adaptive
-              management, and stakeholder engagement for optimal results. -->
-            </p>
-          </div>
-          <div class="execution-arrow">→</div>
-          <div class="execution-step">
-            <div class="step-number">04</div>
-            <h3>Monitoring & Final Handover</h3>
-            <p>
-              Continuous monitoring of expected outcomes, stakeholders training,
-              assets handover and final expectation sign-off with comprehensive
-              feedback.
-              <!-- Track progress against KPIs, ensure sustainability, and
-              transition ownership to your team with comprehensive knowledge
-              transfer. -->
-            </p>
-          </div>
-        </div>
-
-        <div class="execution-image">
-          <img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&fit=crop"
-            alt="Continuous Improvement Process"
-          />
         </div>
       </div>
     </section>
@@ -355,17 +320,18 @@
           <h2>Our Belief</h2>
           <p class="belief-message">
             <!-- "Remodel to Realize is a continuous journey — moving organizations -->
-            Remodel to Realize is not a one-time strategy, it is a continuous
-            process which will enable the organizations move from Complexity and
-            Chaos to Clarity and Confidence Zones. We partner with the customers
-            and teams who are ready to remodel their Process, People, Practice
-            and Performance and realize meaningful changes. <br />
-            <span class="highlight">Complexity and Chaos</span> to
-            <span class="highlight">Clarity and Confidence.</span>"
+            Remodel to Realize is is a continuous process which will enable the
+            organizations move from Complexity & Chaos to Clarity & Confidence
+            Zones. <br /><br />We partner with the customers & teams who are
+            ready to remodel their Process, People, Practice and Performance and
+            realize meaningful changes. <br /><br />
+            <!-- <span class="highlight">Complexity and Chaos</span> to
+            <span class="highlight">Clarity and Confidence.</span>" -->
           </p>
-          <p class="belief-subtitle">
-            Every transformation begins with a clear vision. We guide you every
-            step of the way.
+          <p class="belief-message">
+            Every transformation begins with a
+            <span class="highlight">clear vision.</span> We guide you every
+            <span class="highlight">step of the journey.</span>
           </p>
         </div>
       </div>
@@ -383,29 +349,68 @@
 
         <div class="contact-content">
           <div class="contact-info">
-            <div class="contact-card">
-              <h3>Email</h3>
-              <a href="mailto:rrconsulting2025@gmail.com" class="contact-link"
-                >rrconsulting2025@gmail.com</a
-              >
-            </div>
-            <div class="contact-card">
-              <h3>Quick Links</h3>
-              <ul>
-                <li>
-                  <a href="mailto:rrconsulting2025@gmail.com">Send an Email</a>
-                </li>
-                <li><a href="tel:+919876543210">Call Us</a></li>
-                <li>
-                  <a
-                    href="https://www.linkedin.com/company/rrconsulting2025"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >LinkedIn</a
+            <div class="contact-card contact-email-card">
+              <p>
+                <span class="contact-icon" aria-hidden="true">
+                  <!-- Envelope SVG -->
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    focusable="false"
+                    aria-hidden="true"
                   >
-                </li>
-              </ul>
+                    <path
+                      d="M3 6.75C3 5.7835 3.7835 5 4.75 5h14.5C20.2165 5 21 5.7835 21 6.75v10.5c0 .9665-.7835 1.75-1.75 1.75H4.75A1.75 1.75 0 013 17.25V6.75z"
+                      stroke="#1f2937"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M21 7.5l-9 6-9-6"
+                      stroke="#1f2937"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <a href="mailto:rrconsulting2025@gmail.com" class="contact-link"
+                  >Email: rrconsulting2025@gmail.com</a
+                >
+              </p>
+              <p>
+                <span class="contact-icon" aria-hidden="true">
+                  <!-- LinkedIn SVG -->
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    focusable="false"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M4.98 3.5c0 1.3807-1.11 2.5-2.48 2.5S0 4.8807 0 3.5 1.11 1 2.5 1 4.98 2.1193 4.98 3.5zM.38 24h4.24V7.98H.38V24zM8.98 24h4.07v-8.01c0-4.275 5.48-4.62 5.48 0V24h4.07V13.33C22.6 6.72 16.64 6.33 13.27 8.98V8.98c-.18.1-2.16.7-4.29.7H8.98V24z"
+                      fill="#0A66C2"
+                    />
+                  </svg>
+                </span>
+                <a
+                  href="https://www.linkedin.com/company/rrconsulting2025"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="contact-link"
+                  >LinkedIn:
+                  https://www.linkedin.com/company/rrconsulting2025</a
+                >
+              </p>
             </div>
+            <!-- Quick Links removed; integrate into the Email card above -->
             <!-- Newsletter removed as per preference -->
           </div>
 
@@ -419,15 +424,29 @@
                 value="general"
               />
               <div class="form-group">
-                <input type="text" placeholder="Your Name" required />
+                <input
+                  id="contactName"
+                  name="contactName"
+                  type="text"
+                  placeholder="Your Name"
+                  required
+                />
               </div>
               <div class="form-group">
-                <input type="email" placeholder="Your Email" required />
+                <input
+                  id="contactEmail"
+                  name="contactEmail"
+                  type="email"
+                  placeholder="Your Email"
+                  required
+                />
               </div>
               <div class="form-group">
                 <textarea
+                  id="contactMessage"
+                  name="contactMessage"
                   placeholder="Your Message"
-                  rows="5"
+                  rows="3"
                   required
                 ></textarea>
               </div>
@@ -478,7 +497,7 @@
               <li><a href="#home">Home</a></li>
               <li><a href="#about">About Us</a></li>
               <li><a href="#services">Services</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><a href="#contact">Contact Us</a></li>
               <li>
                 <a
                   href="https://www.linkedin.com/company/rrconsulting2025"
