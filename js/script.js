@@ -442,4 +442,44 @@ if ("IntersectionObserver" in window) {
     .forEach((img) => imageObserver.observe(img));
 }
 
+// ========== SCROLL-TO-TOP BUTTON ==========
+function initScrollToTopButton() {
+  const scrollBtn = document.getElementById("scrollToTopBtn");
+  const scrollThreshold = 300; // Show button after scrolling 300px
+
+  if (!scrollBtn) return;
+
+  // Show/hide button based on scroll position
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > scrollThreshold) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
+    }
+  });
+
+  // Smooth scroll to top on button click
+  scrollBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
+
+  // Keyboard support (Enter or Space key)
+  scrollBtn.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  });
+}
+
+// Initialize scroll-to-top when DOM is ready
+document.addEventListener("DOMContentLoaded", initScrollToTopButton);
+
 console.log("R&R Consulting Website - JS Loaded Successfully");
