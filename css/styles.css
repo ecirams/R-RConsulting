@@ -402,6 +402,20 @@ a:hover {
   color: var(--white);
 }
 
+/* Ensure About section header and subtitle have white text for readability */
+.about .section-header h2 {
+  color: var(--white) !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+.about .section-subtitle {
+  color: rgba(255,255,255,0.95) !important;
+}
+
+/* Ensure the 'About' section header appears just below the sticky navbar on anchor navigation */
+#about {
+  scroll-margin-top: 110px;
+}
+
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -460,6 +474,7 @@ a:hover {
 
 .founders-section h3 {
   margin-bottom: 2rem;
+  color: var(--white);
 }
 
 .founders-grid {
@@ -606,14 +621,26 @@ a:hover {
 
 /* Approach list styling for the About section */
 .approach-list {
-  list-style: decimal inside;
-  margin: 2rem 0 2rem 0;
-  padding-left: 1rem;
+  list-style: disc outside;
+  margin: 0.5rem 0 1.25rem 0; /* smaller gap from the paragraph and the following content */
+  padding-left: 1.25rem;
   color: var(--text-dark);
+  font-size: 1rem; /* match the default about card font */
+  font-family: inherit;
+  line-height: 1.6;
 }
 
 .approach-list li {
-  margin: 0.5rem 0;
+  margin: 0.35rem 0; /* reduced gap between list items */
+  line-height: 1.6;
+}
+
+/* Ensure paragraph text in about cards matches list styling */
+.about-card p,
+.about-card li {
+  color: var(--text-dark);
+  font-size: 1rem;
+  font-family: inherit;
   line-height: 1.6;
 }
 
