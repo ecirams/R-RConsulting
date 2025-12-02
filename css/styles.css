@@ -226,7 +226,7 @@ a:hover {
     padding: 1rem;
   }
 
-  # Hide textual brand name in layout (no text next to logo per request)
+  /* Hide textual brand name in layout (no text next to logo per request) */
   .brand-name {
     display: none;
   }
@@ -240,13 +240,19 @@ a:hover {
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-attachment: scroll;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--white);
   overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    background-attachment: fixed;
+  }
 }
 
 .hero-overlay {
@@ -402,6 +408,18 @@ a:hover {
 .section-header h2 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .section-header h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
 }
 
 .section-subtitle {
@@ -721,11 +739,11 @@ a:hover {
 .insights .insights-message p { color: var(--accent-green); font-size: 1.0rem; }
 
 /* Move the 'Coming soon' message upward to sit closer to the header */
-.insights-message { margin-top: -80px; }
+.insights-message { margin-top: -180px; }
 
 @media (max-width: 768px) {
   .insights .section-header { margin-top: 60px; }
-  .insights-message { margin-top: -40px; }
+  .insights-message { margin-top: -140px; }
 }
 
 .execution-model {
@@ -922,6 +940,13 @@ a:hover {
   box-shadow: var(--shadow-lg);
 }
 
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+}
+
 .modal-close {
   float: right;
   font-size: 1.25rem;
@@ -981,7 +1006,15 @@ a:hover {
 .contact-link {
   font-weight: 600;
   color: var(--secondary-blue);
-  word-break: break-all;
+  word-break: break-word;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .contact-link {
+    font-size: 0.9rem;
+  }
 }
 
 .contact-card ul {
@@ -1043,6 +1076,12 @@ a:hover {
 .contact-form {
   display: grid;
   gap: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .contact-form {
+    gap: 1rem;
+  }
 }
 
 .form-group {
@@ -1243,3 +1282,74 @@ a:hover {
   .logo {
     max-width: 100px; /* slightly larger on high-DPI displays */
   }
+
+/* ========== ENHANCED MOBILE OPTIMIZATION FOR SMALL SCREENS ========== */
+
+/* Extra small devices (max 480px) */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 15px;
+  }
+
+  .logo {
+    max-width: 90px;
+  }
+
+  .hero {
+    height: 70vh;
+  }
+
+  .hero-subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+
+  .service-image {
+    height: 180px;
+  }
+
+  .service-list li {
+    font-size: 0.9rem;
+  }
+
+  .insights-message h3 {
+    font-size: 1.5rem;
+  }
+
+  .insights-message p {
+    font-size: 0.95rem;
+  }
+
+  .contact-form-container {
+    padding: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.5rem;
+    font-size: 16px;
+  }
+
+  .form-group textarea {
+    min-height: 100px;
+  }
+
+  .submit-btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+}
