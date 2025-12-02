@@ -319,7 +319,7 @@ if (downloadForm) {
     );
     const link = document.createElement("a");
     // Update to the official file name for the One Page About Us
-    const fileName = "R&R_Conulting_About_Us_V1.pdf";
+        const fileName = "R&R_Consulting_About_Us_V1.pdf";
     link.href = `assets/${encodeURIComponent(fileName)}`;
     link.download = fileName;
     document.body.appendChild(link);
