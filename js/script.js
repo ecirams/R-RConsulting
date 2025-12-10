@@ -479,6 +479,26 @@ function initScrollToTopButton() {
   });
 }
 
+// Function to initialize the Sticky CTA Bar
+function initStickyCTABar() {
+  const stickyCTABar = document.getElementById("stickyCTABar");
+  const stickyThreshold = 300; // Change this value as needed
+
+  if (!stickyCTABar) return;
+
+  // Show/hide Sticky CTA Bar based on scroll position
+  window.addEventListener("scroll", function () {
+    if (window.pageYOffset > stickyThreshold) {
+      stickyCTABar.classList.add("show");
+    } else {
+      stickyCTABar.classList.remove("show");
+    }
+  });
+}
+
+// Initialize the Sticky CTA Bar when DOM is ready
+document.addEventListener("DOMContentLoaded", initStickyCTABar);
+
 // Initialize scroll-to-top when DOM is ready
 document.addEventListener("DOMContentLoaded", initScrollToTopButton);
 
