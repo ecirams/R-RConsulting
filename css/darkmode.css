@@ -1,0 +1,100 @@
+/* ========== DARK MODE ========== */
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-dark);
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.5rem;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .dark-mode-toggle {
+    color: var(--white);
+}
+
+.dark-mode .dark-mode-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --text-dark: #f1f5f9;
+    --text-light: #94a3b8;
+    --white: #0f172a;
+    /* Dark Slate background */
+    --light-bg: #1e293b;
+    /* Slightly lighter dark */
+    --border-color: #334155;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Specific Dark Mode Overrides */
+.dark-mode .navbar {
+    background-color: var(--white);
+    border-bottom-color: var(--accent-green);
+}
+
+.dark-mode .nav-menu {
+    background-color: var(--white);
+}
+
+.dark-mode .service-card,
+.dark-mode .about-card,
+.dark-mode .founder-card,
+.dark-mode .contact-card,
+.dark-mode .modal-content,
+.dark-mode .sticky-cta-bar {
+    background-color: var(--light-bg);
+}
+
+.dark-mode .sticky-cta-bar {
+    background-color: rgba(15, 23, 42, 0.95);
+    /* Semi-transparent dark slate */
+    border-top-color: var(--border-color);
+}
+
+.dark-mode .contact-form-container {
+    background-color: var(--light-bg);
+}
+
+.dark-mode .form-group input,
+.dark-mode .form-group textarea {
+    background-color: var(--white);
+    color: var(--text-dark);
+    border-color: var(--border-color);
+}
+
+.dark-mode .logo {
+    background: rgba(255, 255, 255, 0.9);
+    /* Keep logo background white-ish for visibility */
+}
+
+/* Update text colors in dark mode for specific elements */
+.dark-mode h4,
+.dark-mode .tagline {
+    color: var(--text-dark);
+}
+
+.dark-mode .service-list li {
+    color: var(--text-light);
+}
+
+.dark-mode .about-card p,
+.dark-mode .about-card li {
+    color: var(--text-light);
+}
+
+.dark-mode .founder-role {
+    color: var(--secondary-blue);
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics | R&R Consulting</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <style>
+        /* Analytics Specific Styles */
+        .auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1rem;
+            text-align: center;
+            background-color: var(--light-bg);
+            min-height: 40vh;
+        }
+
+        .protected-section {
+            display: none;
+            /* Hidden by default */
+            padding: 4rem 0;
+        }
+
+        /* Full height sections */
+        .analytics-block {
+            min-height: 90vh;
+            /* Almost full viewport like Hero */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            scroll-margin-top: 100px;
+            /* Fix scroll overlap */
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .data-table-container {
+            overflow-x: auto;
+            margin-bottom: 3rem;
+            background: #e0f2fe;
+            /* Light Blue Background */
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 1rem;
+            border: 1px solid #bae6fd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #93c5fd;
+            /* Blue border */
+        }
+
+        th {
+            background-color: #0284c7;
+            /* Darker Blue Header */
+            color: white;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .section-title {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-orange);
+            padding-left: 1rem;
+        }
+
+        .error-message {
+            color: #ef4444;
+            margin-top: 1rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Navbar Login adjustments */
+        .nav-right-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+            /* Push to right */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo-section">
+                    <a href="index.html">
+                        <img src="assets/images/rr-logo.png" alt="R&R Consulting Logo" class="logo" />
+                    </a>
+                    <div class="tagline-wrapper">
+                        <span class="tagline">Remodel to Realize</span>
+                    </div>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="analytics.html" class="active">Analytics Home</a></li>
+                    <li><a href="#onePagerSection">One Page About Us List</a></li>
+                    <li><a href="#messagesSection">Contact Messages List</a></li>
+                </ul>
+
+                <div class="nav-right-section">
+                    <!-- Login Button -->
+                    <div id="navLoginContainer" class="nav-login-container">
+                        <div id="g_id_onload"
+                            data-client_id="994866910276-0elmm44uvmo1k2svf3dk1174eqtq4pqu.apps.googleusercontent.com"
+                            data-context="signin" data-ux_mode="popup" data-callback="handleCredentialResponse"
+                            data-auto_prompt="false">
+                        </div>
+                        <!-- Changed theme to filled_blue for visibility -->
+                        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="filled_blue"
+                            data-text="signin_with" data-size="medium">
+                        </div>
+                    </div>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
+                        <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M12 3V4M12 20V21M4 12H3M21 12H20M18.364 5.636L17.657 6.343M6.343 17.657L5.636 18.364M18.364 18.364L17.657 17.657M6.343 6.343L5.636 5.636M12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8Z" />
+                        </svg>
+                        <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            style="display: none;">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+                        </svg>
+                    </button>
+
+                    <div class="hamburger">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section (Always Visible) -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle hero-line1">Advisory & Consulting Services</p>
+            <p class="hero-subtitle hero-line2">Analytics Dashboard</p>
+        </div>
+    </section>
+
+    <!-- Login Msg Section -->
+    <div id="loginSection" class="auth-container">
+        <h2>Login to Access Dashboard</h2>
+        <p>Please use the button in the navigation bar to sign in.</p>
+        <p id="authError" class="error-message">Access Denied: You are not authorized to view this page.</p>
+    </div>
+
+    <!-- Protected Analytics Section -->
+    <section id="analyticsContent" class="protected-section" style="padding: 0;">
+        <!-- Remove default padding to let blocks handle it -->
+        <div class="container">
+
+            <!-- One Pager List Block -->
+            <div id="onePagerSection" class="analytics-block">
+                <h3 class="section-title">One Page About Us Requests</h3>
+                <div class="data-table-container">
+                    <table id="onePagerTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Email</th>
+                                <!-- Dynamic headers will be populated -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">Loading data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Messages List Block -->
+            <div id="messagesSection" class="analytics-block">
+                <h3 class="section-title">Contact Messages</h3>
+                <div class="data-table-container">
+                    <table id="messagesTable">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5">Loading data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <img src="assets/images/rr-logo.png" alt="R&R Consulting Logo" class="footer-logo" />
+                    <p>Remodel to Realize</p>
+                </div>
+                <div class="footer-section">
+                    <p>© 2025 R&R Consulting. All rights reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script> <!-- Reusing main script for Nav/Dark Mode -->
+    <script src="js/analytics.js"></script>
+</body>
+
+</html>

@@ -21,11 +21,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Contact Form Handling
-  const contactForm = document.getElementById("contactForm");
-  if (contactForm) {
-    contactForm.addEventListener("submit", handleContactForm);
-  }
+  // Contact Form Handling - Handled via iframe onload
+  // const contactForm = document.getElementById("contactForm");
+  // if (contactForm) {
+  //   contactForm.addEventListener("submit", handleContactForm);
+  // }
 
   // Newsletter Form Handling
   const newsletterForm = document.getElementById("newsletterForm");
@@ -37,102 +37,23 @@ document.addEventListener("DOMContentLoaded", function () {
   observeElements();
 });
 
+// Preloader Logic
+window.addEventListener("load", function () {
+  const preloader = document.getElementById("preloader");
+  if (preloader) {
+    // Add a small delay to ensure branding is seen
+    setTimeout(() => {
+      preloader.classList.add("hidden");
+    }, 800); // 0.8s minimum display time
+  }
+});
+
 // Contact Form Handler
-function handleContactForm(e) {
-  e.preventDefault();
-  const formData = new FormData(this);
-  const name = this.querySelector("#contactName")
-    ? this.querySelector("#contactName").value.trim()
-    : "";
-  const email = this.querySelector("#contactEmail")
-    ? this.querySelector("#contactEmail").value.trim()
-    : "";
-  const message = this.querySelector("#contactMessage")
-    ? this.querySelector("#contactMessage").value.trim()
-    : "";
-  const attachments = this.querySelector("#attachments").files[0];
+// Contact Form Handler - Removed to allow Google Forms submission via iframe
+// The form submission is now handled by the 'onload' event of the hidden iframe in index.html,
+// which triggers the success modal.
+var submitted = false; // Flag to track submission status
 
-  // Verify reCAPTCHA is checked (optional - validation depends on backend)
-  const recaptchaResponse = grecaptcha.getResponse();
-
-  if (!recaptchaResponse) {
-    alert("Please complete the reCAPTCHA verification.");
-    return;
-  }
-
-  // Here you would typically send this data to your server or a 3rd-party service.
-  // We support EmailJS (https://www.emailjs.com/) for client-side sending.
-  const EMAILJS_ENABLED = false; // Set to true after adding your EmailJS credentials below.
-  const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // e.g., 'service_xxx'
-  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // e.g., 'template_xxx'
-  const EMAILJS_USER_ID = "YOUR_USER_ID"; // initialize EmailJS if using it
-
-  const payload = {
-    name: name,
-    email: email,
-    message: message,
-    request_type: document.getElementById("requestType")
-      ? document.getElementById("requestType").value
-      : "general",
-  };
-
-  // If EmailJS is configured and available, use it.
-  if (
-    EMAILJS_ENABLED &&
-    typeof emailjs !== "undefined" &&
-    EMAILJS_SERVICE_ID &&
-    EMAILJS_TEMPLATE_ID
-  ) {
-    try {
-      if (EMAILJS_USER_ID && typeof emailjs.init === "function") {
-        emailjs.init(EMAILJS_USER_ID);
-      }
-      emailjs
-        .send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, payload)
-        .then(() => {
-          showNotification(
-            "Thank you! Your message has been sent successfully.",
-            "success"
-          );
-          contactForm.reset();
-          grecaptcha.reset();
-        })
-        .catch((err) => {
-          console.error("EmailJS send error:", err);
-          showNotification(
-            "There was an error sending your message. Please try again later.",
-            "error"
-          );
-        });
-      return;
-    } catch (err) {
-      console.warn("EmailJS error", err);
-    }
-  }
-
-  // Fallback: open the user's mail client using mailto:. This requires the user to confirm sending.
-  const to = "rrconsulting2025@gmail.com";
-  const subject = encodeURIComponent(
-    `Contact Request from ${name || "Website Visitor"}`
-  );
-  const bodyLines = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Request Type: ${payload.request_type}`,
-    "",
-    "Message:",
-    message || "(no message provided)",
-  ];
-  const mailtoUrl = `mailto:${encodeURIComponent(
-    to
-  )}?subject=${subject}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
-  window.location.href = mailtoUrl;
-
-  // If we reached here, the fallback mailto has been opened and the user will need to send it.
-  // Optionally, clear the form and reset reCAPTCHA.
-  this.reset();
-  grecaptcha.reset();
-}
 
 // Newsletter Form Handler
 function handleNewsletterForm(e) {
@@ -364,28 +285,40 @@ modalCloses.forEach((btn) =>
 const downloadForm = document.getElementById("downloadForm");
 if (downloadForm) {
   downloadForm.addEventListener("submit", function (e) {
-    e.preventDefault();
+    // Note: We do NOT call e.preventDefault() here so the form actually submits to the target iframe (Google Form)
+
     const email = document.getElementById("downloadEmail").value;
     if (!isValidEmail(email)) {
+      e.preventDefault(); // Stop submission if invalid
       showNotification("Please enter a valid email address.", "error");
       return;
     }
-    // Simulate sending data, then start download
+
+    // Form is valid and will submit to hidden iframe.
+    // Proceed with download flow and UI feedback.
+
     showNotification(
       "Thanks! Your capability statement is downloading now.",
       "success"
     );
+
+    // Trigger file download
     const link = document.createElement("a");
-    // Update to the official file name for the One Page About Us
     const fileName = "R&R_Consulting_About_Us_V1.pdf";
     link.href = `assets/doc/${encodeURIComponent(fileName)}`;
     link.download = fileName;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Close modal
     const modal = document.getElementById("downloadModal");
     if (modal) modal.setAttribute("aria-hidden", "true");
-    downloadForm.reset();
+
+    // Reset form after a delay to ensure submission is sent
+    setTimeout(() => {
+      downloadForm.reset();
+    }, 1000);
   });
 }
 
@@ -445,13 +378,33 @@ if ("IntersectionObserver" in window) {
 // ========== SCROLL-TO-TOP BUTTON ==========
 function initScrollToTopButton() {
   const scrollBtn = document.getElementById("scrollToTopBtn");
-  const scrollThreshold = 300; // Show button after scrolling 300px
+  const circle = document.querySelector(".progress-ring-circle");
+  const scrollThreshold = 300;
 
-  if (!scrollBtn) return;
+  if (!scrollBtn || !circle) return;
 
-  // Show/hide button based on scroll position
+  // Calculate circumference
+  const radius = circle.r.baseVal.value;
+  const circumference = 2 * Math.PI * radius;
+
+  // Set initial state
+  circle.style.strokeDasharray = `${circumference} ${circumference}`;
+  circle.style.strokeDashoffset = circumference;
+
+  function setProgress(percent) {
+    const offset = circumference - (percent / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+  }
+
+  // Show/hide button and update progress based on scroll position
   window.addEventListener("scroll", function () {
-    if (window.pageYOffset > scrollThreshold) {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrollPercent = (scrollTop / scrollHeight) * 100;
+
+    setProgress(scrollPercent);
+
+    if (scrollTop > scrollThreshold) {
       scrollBtn.classList.add("show");
     } else {
       scrollBtn.classList.remove("show");
@@ -482,18 +435,45 @@ function initScrollToTopButton() {
 // Function to initialize the Sticky CTA Bar
 function initStickyCTABar() {
   const stickyCTABar = document.getElementById("stickyCTABar");
-  const stickyThreshold = 300; // Change this value as needed
+  const servicesSection = document.getElementById("services");
 
-  if (!stickyCTABar) return;
+  if (!stickyCTABar || !servicesSection) return;
 
-  // Show/hide Sticky CTA Bar based on scroll position
+  // Show/hide Sticky CTA Bar based on scroll position relative to Services section
   window.addEventListener("scroll", function () {
-    if (window.pageYOffset > stickyThreshold) {
+    const servicesRect = servicesSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Show ONLY when the Services section is within the viewport
+    // It appears when trying to enter from bottom (top < windowHeight)
+    // It disappears when fully scrolled past (bottom <= 0)
+    // It disappears when scrolled back up above it (top >= windowHeight)
+    if (servicesRect.top < windowHeight && servicesRect.bottom > 0) {
       stickyCTABar.classList.add("show");
     } else {
       stickyCTABar.classList.remove("show");
     }
   });
+
+  // Bind Sticky CTA Button to open the same modal as the Hero button
+  const stickyCTABtn = document.getElementById("stickyCTABtn");
+  const downloadModal = document.getElementById("downloadModal");
+
+  if (stickyCTABtn && downloadModal) {
+    stickyCTABtn.addEventListener("click", function () {
+      // Prefill request type for analytics/backend
+      const requestInput = document.getElementById("requestType");
+      if (requestInput) requestInput.value = "one_page_about_us_sticky";
+
+      downloadModal.setAttribute("aria-hidden", "false");
+
+      // Focus on the email input for accessibility/usability
+      const emailEl = document.getElementById("downloadEmail");
+      if (emailEl) emailEl.focus();
+
+      trackEvent("engagement", "cta_sticky_click", "sticky_bar");
+    });
+  }
 }
 
 // Initialize the Sticky CTA Bar when DOM is ready
@@ -502,4 +482,81 @@ document.addEventListener("DOMContentLoaded", initStickyCTABar);
 // Initialize scroll-to-top when DOM is ready
 document.addEventListener("DOMContentLoaded", initScrollToTopButton);
 
-console.log("R&R Consulting Website - JS Loaded Successfully");
+// Hero Background Zoom Logic
+document.addEventListener("DOMContentLoaded", function () {
+  const heroSection = document.querySelector(".hero");
+  const triggerText = document.querySelector(".hero-line1"); // "Advisory & Consulting Services"
+
+  if (heroSection && triggerText) {
+    triggerText.addEventListener("mouseenter", function () {
+      heroSection.classList.add("zoomed-bg");
+    });
+
+    triggerText.addEventListener("mouseleave", function () {
+      heroSection.classList.remove("zoomed-bg");
+    });
+  }
+});
+
+// Dark Mode Toggle Logic
+document.addEventListener("DOMContentLoaded", function () {
+  const toggleBtn = document.getElementById("darkModeToggle");
+  const sunIcon = document.querySelector(".sun-icon");
+  const moonIcon = document.querySelector(".moon-icon");
+  const body = document.body;
+
+  // Check Local Storage
+  const isDarkMode = localStorage.getItem("darkMode") === "enabled";
+  if (isDarkMode) {
+    enableDarkMode();
+  }
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", function () {
+      if (body.classList.contains("dark-mode")) {
+        disableDarkMode();
+      } else {
+        enableDarkMode();
+      }
+    });
+  }
+
+  function enableDarkMode() {
+    body.classList.add("dark-mode");
+    localStorage.setItem("darkMode", "enabled");
+    sunIcon.style.display = "none";
+    moonIcon.style.display = "block";
+  }
+
+  function disableDarkMode() {
+    body.classList.remove("dark-mode");
+    localStorage.setItem("darkMode", "disabled");
+    sunIcon.style.display = "block";
+    moonIcon.style.display = "none";
+  }
+});
+
+
+// Active Navigation Highlighting (ScrollSpy)
+document.addEventListener("DOMContentLoaded", function () {
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll(".nav-menu a");
+
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute("id");
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href").includes(current) && current !== "") {
+        link.classList.add("active");
+      }
+    });
+  });
+});

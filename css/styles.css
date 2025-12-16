@@ -8,7 +8,8 @@
   --secondary-blue: #3b82f6;
   --accent-green: #10b981;
   --accent-orange: #f97316;
-  --accent-orange-dark: #c2410f; /* Dark orange for hover backgrounds */
+  --accent-orange-dark: #c2410f;
+  /* Dark orange for hover backgrounds */
   --dark-bg: #0f172a;
   --light-bg: #f8fafc;
   --text-dark: #1e293b;
@@ -104,30 +105,37 @@ a:hover {
 
 .nav-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  /* Move Menu to Left */
+  gap: 2rem;
+  /* Reduce gap between Logo-Menu and Menu-Toggle */
   align-items: center;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
+  /* Reduced Height */
 }
 
 .logo-section {
   display: flex;
-  flex-direction: column; /* Stack logo and tagline vertically */
+  flex-direction: column;
+  /* Stack logo and tagline vertically */
   align-items: center;
   gap: 0.25rem;
 }
 
 .logo {
-  max-width: 120px; /* slightly larger to improve visibility */
+  max-width: 108px;
+  /* Reduced by 10% */
+  /* slightly larger to improve visibility */
   height: auto;
   border-radius: 8px;
   transition: var(--transition);
-  padding: 4px; /* small padding to create breathing space */
-  background: rgba(
-    255,
-    255,
-    255,
-    0.95
-  ); /* subtle white background to improve contrast */
+  padding: 4px;
+  /* small padding to create breathing space */
+  background: rgba(255,
+      255,
+      255,
+      0.95);
+  /* subtle white background to improve contrast */
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
 
@@ -138,21 +146,29 @@ a:hover {
 }
 
 .tagline {
-  font-size: 1.35rem; /* larger tagline */
-  font-weight: 700; /* elegant weight */
-  color: var(--secondary-blue); /* brighter blue */
-  opacity: 0.98;
-  letter-spacing: 0.6px;
-  font-style: italic; /* more elegant */
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  opacity: 0.95;
+  letter-spacing: 0.5px;
+  font-style: italic;
   text-transform: none;
-  text-shadow: 0 2px 8px rgba(14, 165, 233, 0.08); /* subtle glow */
-  transition: transform 0.22s ease, text-shadow 0.22s ease;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: inline-block;
+  /* Required for transform */
 }
 
-.tagline:hover,
-.tagline:focus {
-  transform: translateY(-2px) scale(1.02);
-  text-shadow: 0 4px 14px rgba(14, 165, 233, 0.18);
+/* Hover Animation: Structure (Spacing) + Realization (Glow/Lift) */
+.tagline:hover {
+  letter-spacing: 1.5px;
+  /* Structure */
+  color: var(--accent-orange);
+  /* Realize (Orange from Logo) */
+  text-shadow: 0 0 8px rgba(249, 115, 22, 0.4);
+  /* Realize (Glow) */
+  transform: translateY(-2px);
+  /* Realize (Lift) */
+  cursor: default;
 }
 
 /* Responsive tweak for smaller screens */
@@ -161,14 +177,6 @@ a:hover {
     font-size: 1.05rem;
     letter-spacing: 0.2px;
   }
-}
-
-.tagline {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--primary-blue);
-  opacity: 0.95;
-  margin-top: 2px;
 }
 
 .nav-menu {
@@ -186,7 +194,8 @@ a:hover {
   border-bottom: 2px solid transparent;
 }
 
-.nav-menu a:hover {
+.nav-menu a:hover,
+.nav-menu a.active {
   color: var(--secondary-blue);
   border-bottom-color: var(--accent-orange);
 }
@@ -244,17 +253,51 @@ a:hover {
 .hero {
   position: relative;
   height: 100vh;
+  /* Background moved to ::before for zoom effect */
+  overflow: hidden;
+  /* Ensure zoomed image doesn't overflow */
+  display: flex;
+  align-items: flex-start;
+  /* Align content to top so we can push it down freely */
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+  padding-top: 45vh;
+  /* Push content down to just below center */
+}
+
+/* Pseudo-element for Background Image */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url("../assets/images/127825099.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-attachment: scroll;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  color: var(--white);
-  overflow: hidden;
+  z-index: -2;
+  /* Behind overlay and content */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Smooth zoom */
+}
+
+/* Zoom state class */
+.hero.zoomed-bg::before {
+  transform: scale(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+  /* Behind content but above background */
 }
 
 @media (min-width: 1024px) {
@@ -263,22 +306,15 @@ a:hover {
   }
 }
 
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.45);
-  z-index: 1;
-}
+
 
 .hero-content {
   position: relative;
   z-index: 2;
   max-width: 900px;
   animation: fadeInUp 1s ease-out;
-  margin-top: 18vh; /* shift content down more from center */
+  margin-top: 0;
+  /* Reset margin as positioning is handled by parent padding */
 }
 
 @keyframes fadeInUp {
@@ -286,6 +322,7 @@ a:hover {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -307,10 +344,12 @@ a:hover {
 }
 
 @keyframes pulse {
+
   0%,
   100% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.8;
   }
@@ -403,6 +442,7 @@ a:hover {
     padding: 12px 30px;
     font-size: 0.95rem;
   }
+
   .hero-content {
     margin-top: 10vh;
   }
@@ -440,11 +480,9 @@ a:hover {
 /* About Section */
 .about {
   padding: 5rem 0;
-  background: linear-gradient(
-    135deg,
-    var(--primary-blue) 0%,
-    var(--secondary-blue) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--primary-blue) 0%,
+      var(--secondary-blue) 100%);
   color: var(--white);
 }
 
@@ -453,6 +491,7 @@ a:hover {
   color: var(--white) !important;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
+
 .about .section-subtitle {
   color: rgba(255, 255, 255, 0.95) !important;
 }
@@ -466,7 +505,8 @@ a:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  align-items: stretch; /* Ensure image height matches content */
+  align-items: stretch;
+  /* Ensure image height matches content */
   margin-bottom: 4rem;
 }
 
@@ -499,7 +539,8 @@ a:hover {
   height: 100%;
   border-radius: 12px;
   box-shadow: var(--shadow-lg);
-  object-fit: cover; /* Fill the container while keeping aspect ratio */
+  object-fit: cover;
+  /* Fill the container while keeping aspect ratio */
 }
 
 /* Make about-cards span full height to align with the image */
@@ -510,7 +551,8 @@ a:hover {
 }
 
 .about-text .about-card p {
-  flex: 1 1 auto; /* Allow text to fill space consistently */
+  flex: 1 1 auto;
+  /* Allow text to fill space consistently */
 }
 
 .founders-section {
@@ -560,7 +602,8 @@ a:hover {
 }
 
 .founder-bullets {
-  display: none; /* We removed the detailed bullets for founder bios */
+  display: none;
+  /* We removed the detailed bullets for founder bios */
 }
 
 .founder-image img {
@@ -668,16 +711,19 @@ a:hover {
 /* Approach list styling for the About section */
 .approach-list {
   list-style: disc outside;
-  margin: 0.5rem 0 1.25rem 0; /* smaller gap from the paragraph and the following content */
+  margin: 0.5rem 0 1.25rem 0;
+  /* smaller gap from the paragraph and the following content */
   padding-left: 1.25rem;
   color: var(--text-dark);
-  font-size: 1rem; /* match the default about card font */
+  font-size: 1rem;
+  /* match the default about card font */
   font-family: inherit;
   line-height: 1.6;
 }
 
 .approach-list li {
-  margin: 0.35rem 0; /* reduced gap between list items */
+  margin: 0.35rem 0;
+  /* reduced gap between list items */
   line-height: 1.6;
 }
 
@@ -740,21 +786,25 @@ a:hover {
 .insights-message p {
   font-size: 1.1rem;
   color: rgba(255, 255, 255, 0.95);
-  margin: 0.35rem 0; /* tighten spacing between the two lines */
+  margin: 0.35rem 0;
+  /* tighten spacing between the two lines */
 }
 
 /* Adjust layout specific to Insights: move heading down, reduce subtitle size, color message green */
 .insights .section-header {
   margin-top: 150px;
 }
+
 @media (max-width: 768px) {
   .insights .section-header {
     margin-top: 60px;
   }
 }
+
 .insights .section-subtitle {
   font-size: 1rem;
 }
+
 .insights .insights-message p {
   color: var(--accent-green);
   font-size: 1rem;
@@ -769,6 +819,7 @@ a:hover {
   .insights .section-header {
     margin-top: 60px;
   }
+
   .insights-message {
     margin-top: -140px;
   }
@@ -777,12 +828,15 @@ a:hover {
 .execution-model {
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap; /* Keep all steps in one horizontal line */
-  gap: 0.5rem; /* Reduced gap between steps for compact layout */
+  flex-wrap: nowrap;
+  /* Keep all steps in one horizontal line */
+  gap: 0.5rem;
+  /* Reduced gap between steps for compact layout */
   margin-bottom: 3rem;
   align-items: stretch;
   justify-content: center;
-  overflow-x: auto; /* Allow horizontal scroll on small screens */
+  overflow-x: auto;
+  /* Allow horizontal scroll on small screens */
   padding-bottom: 0.5rem;
   -webkit-overflow-scrolling: touch;
 }
@@ -795,9 +849,12 @@ a:hover {
   text-align: center;
   transition: var(--transition);
   border-top: 4px solid var(--accent-green);
-  flex: 0 0 22%; /* Each step takes ~22% of the row, leaving space for arrows */
-  min-width: 220px; /* Ensure readable content */
-  background: var(--light-bg); /* Light background color for each step box */
+  flex: 0 0 22%;
+  /* Each step takes ~22% of the row, leaving space for arrows */
+  min-width: 220px;
+  /* Ensure readable content */
+  background: var(--light-bg);
+  /* Light background color for each step box */
   border: 1px solid rgba(17, 24, 39, 0.04);
   padding: 1.5rem 1.2rem;
 }
@@ -806,11 +863,9 @@ a:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-lg);
   border-top-color: var(--accent-orange-dark);
-  background: linear-gradient(
-    180deg,
-    var(--accent-orange-dark),
-    var(--accent-orange)
-  );
+  background: linear-gradient(180deg,
+      var(--accent-orange-dark),
+      var(--accent-orange));
   color: var(--white);
   cursor: pointer;
 }
@@ -856,10 +911,12 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+
   /* Keep horizontal layout but allow scrolling; show arrows smaller */
   .execution-step {
     flex: 0 0 260px;
   }
+
   .execution-arrow {
     font-size: 1.25rem;
   }
@@ -873,7 +930,8 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0; /* Padding is reset to vertically center content within full height */
+  padding: 0;
+  /* Padding is reset to vertically center content within full height */
   background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #0ea5e9 100%);
   color: var(--white);
   text-align: center;
@@ -894,7 +952,8 @@ a:hover {
   z-index: 2;
   max-width: 900px;
   margin: 0 auto;
-  padding: 4rem 1.25rem; /* Add inner padding for improved spacing when full height */
+  padding: 4rem 1.25rem;
+  /* Add inner padding for improved spacing when full height */
 }
 
 .belief-content h2 {
@@ -907,9 +966,11 @@ a:hover {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
+
   .about .section-header h2 {
     color: var(--white);
   }
+
   .about .section-subtitle {
     color: rgba(255, 255, 255, 0.95);
   }
@@ -918,6 +979,7 @@ a:hover {
   #about {
     scroll-margin-top: 110px;
   }
+
   line-height: 1.8;
 }
 
@@ -946,7 +1008,8 @@ a:hover {
 
 /* Modal styles */
 .modal {
-  display: none; /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;
@@ -990,7 +1053,8 @@ a:hover {
 
 .contact-content {
   display: grid;
-  grid-template-columns: 1fr; /* Stack subsections vertically for clarity */
+  grid-template-columns: 1fr;
+  /* Stack subsections vertically for clarity */
   gap: 1.5rem;
   margin-bottom: 3rem;
 }
@@ -1032,13 +1096,14 @@ a:hover {
 .contact-email-card p {
   margin: 0.35rem 0;
 }
+
 .contact-email-card .contact-link {
   color: var(--text-dark);
   font-weight: 600;
 }
 
 /* Add spacing specifically between email and LinkedIn lines */
-.contact-email-card p + p {
+.contact-email-card p+p {
   margin-top: 0.75rem;
 }
 
@@ -1099,12 +1164,16 @@ a:hover {
 }
 
 .contact-form-container {
-  background: #f1f5f9; /* lighter background to contrast with form inputs */
-  padding: 1.25rem; /* reduce padding to decrease vertical height */
+  background: #f1f5f9;
+  /* lighter background to contrast with form inputs */
+  padding: 1.25rem;
+  /* reduce padding to decrease vertical height */
   border-radius: 12px;
   box-shadow: var(--shadow-md);
-  border-left: 6px solid var(--accent-green); /* Left-hand green border */
-  padding-left: 1.25rem; /* Extra left padding to offset border */
+  border-left: 6px solid var(--accent-green);
+  /* Left-hand green border */
+  padding-left: 1.25rem;
+  /* Extra left padding to offset border */
 }
 
 .contact-form-container h3 {
@@ -1135,7 +1204,8 @@ a:hover {
 
 .form-group input,
 .form-group textarea {
-  padding: 0.55rem; /* reduce input padding to reduce form height */
+  padding: 0.55rem;
+  /* reduce input padding to reduce form height */
   border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
@@ -1299,6 +1369,7 @@ a:hover {
     opacity: 0;
     transform: translateX(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1310,6 +1381,7 @@ a:hover {
     opacity: 0;
     transform: translateX(50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1321,6 +1393,7 @@ a:hover {
     opacity: 0;
     transform: scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -1329,6 +1402,7 @@ a:hover {
 
 /* Print Styles */
 @media print {
+
   .navbar,
   .footer {
     display: none;
@@ -1336,9 +1410,11 @@ a:hover {
 }
 
 /* High DPI Screens */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
   .logo {
-    max-width: 100px; /* slightly larger on high-DPI displays */
+    max-width: 100px;
+    /* slightly larger on high-DPI displays */
   }
 
   /* ========== ENHANCED MOBILE OPTIMIZATION FOR SMALL SCREENS ========== */
@@ -1411,114 +1487,383 @@ a:hover {
       width: 95%;
     }
   }
+}
 
-  /* ========== SCROLL-TO-TOP BUTTON ========== */
+/* ========== SCROLL-TO-TOP BUTTON ========== */
 
-  .scroll-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--accent-green) 0%, #059669 100%);
-    color: var(--white);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
-    transition: all 0.3s ease;
-    z-index: 999;
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--white);
+  /* White bg instead of gradient */
+  color: var(--accent-green);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+
+.scroll-to-top .scroll-arrow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.progress-ring-circle {
+  transition: stroke-dashoffset 0.1s;
+  stroke-dasharray: 125.66;
+  /* Circumference = 2 * PI * r (20) */
+  stroke-dashoffset: 125.66;
+  stroke-linecap: round;
+}
+
+.scroll-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0);
+}
+
+.scroll-to-top.show {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
     opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
+    transform: translateY(40px);
   }
 
-  .scroll-to-top:hover {
-    background: linear-gradient(135deg, var(--accent-orange) 0%, #fb923c 100%);
-    box-shadow: 0 12px 32px rgba(249, 115, 22, 0.4);
-    transform: translateY(10px);
-  }
-
-  .scroll-to-top:active {
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
+}
 
-  .scroll-to-top.show {
-    display: flex;
-    opacity: 1;
-    visibility: visible;
-    animation: slideInUp 0.3s ease-out;
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
   }
+}
 
-  @keyframes slideInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+@media (max-width: 480px) {
+  .scroll-to-top {
+    bottom: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
   }
 
   .scroll-to-top svg {
-    width: 24px;
-    height: 24px;
-    stroke: currentColor;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Keyboard focus accessibility */
+.scroll-to-top:focus {
+  outline: 3px solid rgba(16, 185, 129, 0.3);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: more) {
+  .scroll-to-top {
+    border: 2px solid var(--white);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-to-top {
+    transition: opacity 0.15s ease;
   }
 
-  /* Mobile responsiveness */
-  @media (max-width: 768px) {
-    .scroll-to-top {
-      bottom: 20px;
-      right: 20px;
-      width: 45px;
-      height: 45px;
-    }
+  .scroll-to-top.show {
+    animation: none;
   }
 
-  @media (max-width: 480px) {
-    .scroll-to-top {
-      bottom: 15px;
-      right: 15px;
-      width: 44px;
-      height: 44px;
-    }
+  .scroll-to-top:hover {
+    transform: none;
+  }
+}
 
-    .scroll-to-top svg {
-      width: 20px;
-      height: 20px;
-    }
+/* ========== STICKY CTA BAR ========== */
+.sticky-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  /* 50% transparency */
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0;
+  z-index: 998;
+  /* Below modal (10000) and scroll-to-top (999) */
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-top: 1px solid var(--border-color);
+}
+
+.sticky-cta-bar.show {
+  transform: translateY(0);
+}
+
+.sticky-cta-content {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sticky-cta-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  margin-bottom: 0;
+}
+
+.sticky-cta-button {
+  padding: 10px 25px;
+  background: var(--accent-orange);
+  color: var(--white);
+  border: none;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow-sm);
+  font-size: 1rem;
+}
+
+.sticky-cta-button:hover {
+  background: var(--accent-orange-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+  .sticky-cta-content {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
   }
 
-  /* Keyboard focus accessibility */
-  .scroll-to-top:focus {
-    outline: 3px solid rgba(16, 185, 129, 0.3);
-    outline-offset: 2px;
+  .sticky-cta-text {
+    font-size: 1rem;
   }
 
-  /* High contrast mode support */
-  @media (prefers-contrast: more) {
-    .scroll-to-top {
-      border: 2px solid var(--white);
-    }
+  .sticky-cta-button {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+/* ========== PRELOADER ========== */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--white);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+#preloader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.loader-logo {
+  width: 120px;
+  height: auto;
+  animation: pulseLogo 2s infinite ease-in-out;
+}
+
+@keyframes pulseLogo {
+  0% {
+    transform: scale(1);
+    opacity: 1;
   }
 
-  /* Reduced motion support */
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-to-top {
-      transition: opacity 0.15s ease;
-    }
-
-    .scroll-to-top.show {
-      animation: none;
-    }
-
-    .scroll-to-top:hover {
-      transform: none;
-    }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
   }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.loader-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(16, 185, 129, 0.3);
+  /* accent-green with opacity */
+  border-radius: 50%;
+  border-top: 4px solid var(--accent-orange);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ========== DARK MODE ========== */
+.dark-mode-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dark);
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
+}
+
+.dark-mode-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .dark-mode-toggle {
+  color: var(--text-dark);
+  opacity: 0.8;
+  /* Make it appear mildly */
+}
+
+.dark-mode .dark-mode-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+  --text-dark: #f1f5f9;
+  --text-light: #94a3b8;
+  --white: #0f172a;
+  /* Dark Slate background */
+  --light-bg: #1e293b;
+  /* Slightly lighter dark */
+  --border-color: #334155;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.6);
+}
+
+/* Specific Dark Mode Overrides */
+.dark-mode .navbar {
+  background-color: var(--white);
+  border-bottom-color: var(--accent-green);
+}
+
+.dark-mode .nav-menu {
+  background-color: var(--white);
+}
+
+.dark-mode .service-card,
+.dark-mode .about-card,
+.dark-mode .founder-card,
+.dark-mode .contact-card,
+.dark-mode .modal-content,
+.dark-mode .sticky-cta-bar {
+  background-color: var(--light-bg);
+}
+
+.dark-mode .sticky-cta-bar {
+  background-color: rgba(15, 23, 42, 0.5);
+  /* 50% transparency dark slate */
+  border-top-color: var(--border-color);
+}
+
+.dark-mode .contact-form-container {
+  background-color: var(--light-bg);
+}
+
+.dark-mode .form-group input,
+.dark-mode .form-group textarea {
+  background-color: var(--white);
+  color: var(--text-dark);
+  border-color: var(--border-color);
+}
+
+.dark-mode .logo {
+  background: rgba(255, 255, 255, 0.9);
+  /* Keep logo background white-ish for visibility */
+}
+
+/* Update text colors in dark mode for specific elements */
+.dark-mode h4,
+.dark-mode .tagline {
+  color: var(--text-dark);
+}
+
+.dark-mode .service-list li {
+  color: var(--text-light);
+}
+
+.dark-mode .about-card p,
+.dark-mode .about-card li {
+  color: var(--text-light);
+}
+
+.dark-mode .founder-role {
+  color: var(--secondary-blue);
 }
