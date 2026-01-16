@@ -1,0 +1,129 @@
+[
+  {
+    "category": "General Consulting",
+    "items": [
+      {
+        "question": "What industries does R&R Consulting serve?",
+        "answer": "We partner with organizations across diverse industries — from technology and manufacturing to services and education — enabling them to realize their Vision, Mission, and Goals of Strategic, Business, Operational, and People Excellence."
+      },
+      {
+        "question": "How do you tailor solutions to each client’s unique needs?",
+        "answer": "Our promise is to build practical frameworks and solutions that address Process, People, Practice, and Performance challenges. We begin with expectation understanding and root cause analysis, then co design frameworks aligned with organizational goals, ensuring adoption with clarity and confidence."
+      },
+      {
+        "question": "Do you offer both onsite and remote consulting support?",
+        "answer": "Yes. We adopt a collaborative execution model that works seamlessly in both onsite and remote environments, ensuring continuous communication, stakeholder alignment, and measurable outcomes."
+      },
+      {
+        "question": "How do you ensure confidentiality and data security in client projects?",
+        "answer": "We follow industry standards and proven governance practices to safeguard client information. Our founders’ experience in global corporates ensures strict adherence to confidentiality, compliance, and secure handling of sensitive data."
+      }
+    ]
+  },
+  {
+    "category": "Strategic & Advisory Services",
+    "items": [
+      {
+        "question": "What types of strategic challenges do you help organizations address?",
+        "answer": "We provide assessment and implementation services for Strategic, Business, Operational, and People Excellence. This includes governance services like Balanced Scorecards, proactive alerts, and strategic reviews, as well as leadership mentoring and advisory for start ups and corporates seeking strategic business alignment."
+      },
+      {
+        "question": "Can you assist with both short term problem solving and long term transformation?",
+        "answer": "Absolutely. Our advisory services are designed to bridge immediate operational gaps while also enabling long term transformation. We help organizations move from complexity and chaos to clarity and confidence zones."
+      },
+      {
+        "question": "How do you measure success in advisory engagements?",
+        "answer": "Success is measured through agreed outcomes — revenue growth, margin improvement, enhanced customer satisfaction, and strengthened people engagement. We emphasize measurable KPIs and milestone reviews to ensure tangible impact."
+      }
+    ]
+  },
+  {
+    "category": "Capability Building & Training",
+    "items": [
+      {
+        "question": "What formats do you offer for training?",
+        "answer": "We deliver capability building through workshops, mentoring sessions, branded learning resources, and digital enablement programs. Training is customized for different levels — from fresh engineers to senior leaders."
+      },
+      {
+        "question": "How do you ensure training outcomes are sustainable?",
+        "answer": "We use the Compass of Contribution framework, which helps individuals and teams align their skills, behaviors, and contributions with organizational goals. This compass ensures clarity of direction, confidence in execution, and measurable growth in capability."
+      },
+      {
+        "question": "Do you provide mentoring alongside training?",
+        "answer": "Yes. Our founders are certified mentors with global experience, and we integrate mentoring into capability building to ensure learners not only acquire skills but also develop confidence and career clarity."
+      },
+      {
+        "question": "Can you design branded learning resources for organizations?",
+        "answer": "Yes. We specialize in creating branded toolkits, tip cards, and motivational learning resources that reinforce organizational identity while enhancing learner engagement."
+      }
+    ]
+  },
+  {
+    "category": "Implementation & Enablement",
+    "items": [
+      {
+        "question": "How do you help organizations adopt new processes smoothly?",
+        "answer": "We co opt with customers and teams to design practical frameworks, support adoption with clarity and confidence, and stabilize processes through continuous monitoring and feedback."
+      },
+      {
+        "question": "Do you provide ongoing support after project delivery?",
+        "answer": "Yes. Our collaborative execution model includes continuous monitoring, stakeholder training, and final handover with comprehensive feedback, ensuring long term sustainability of the solutions."
+      }
+    ]
+  },
+  {
+    "category": "Company & Approach",
+    "items": [
+      {
+        "question": "What differentiates R&R Consulting from other consulting firms?",
+        "answer": "R&R Consulting blends governance expertise with branded learning resources and mentoring culture. Unlike traditional firms, we emphasize clarity and confidence in adoption, ensuring that solutions are not only designed but also embraced by people at every level. Our unique mix of strategic advisory, capability building, and branded resource creation makes us a partner in both transformation and sustainability."
+      },
+      {
+        "question": "Who are the founders and what experience do they bring?",
+        "answer": "Our founders bring decades of global corporate experience in governance, mentoring, and capability building. They are certified mentors and seasoned advisors who have led strategic positioning, educational framework design, and branded resource creation across industries. Their vision anchors R&R Consulting’s promise of practical frameworks and measurable outcomes."
+      },
+      {
+        "question": "Do you work with startups as well as established corporates?",
+        "answer": "Yes. We tailor our frameworks to the maturity of the organization. For startups, we provide strategic alignment, mentoring, and scalable processes that enable growth. For established corporates, we focus on transformation, governance, and capability building to strengthen long term excellence."
+      }
+    ]
+  },
+  {
+    "category": "Engagement & Process",
+    "items": [
+      {
+        "question": "What is your typical consulting engagement timeline?",
+        "answer": "Engagements vary depending on scope. Short term sprints focus on immediate operational gaps and can be completed in weeks, while long term transformation programs span months to years, with milestone reviews and continuous mentoring built in."
+      },
+      {
+        "question": "How do you onboard new clients?",
+        "answer": "We begin with expectation mapping and root cause analysis, followed by codesign workshops with stakeholders. This ensures that frameworks are aligned with organizational goals and that adoption is smooth, transparent, and confidence driven."
+      },
+      {
+        "question": "What is your pricing or engagement model?",
+        "answer": "Our engagement models are flexible — ranging from project based consulting to retainer partnerships and outcome linked advisory. This allows organizations to choose the model that best fits their needs and ensures accountability for measurable results."
+      },
+      {
+        "question": "How do you handle change management resistance?",
+        "answer": "We address resistance through clarity and confidence. By codesigning frameworks with stakeholders, integrating mentoring, and reinforcing adoption with branded resources, we ensure that change is not imposed but embraced."
+      }
+    ]
+  },
+  {
+    "category": "Governance & Compliance",
+    "items": [
+      {
+        "question": "Are your frameworks aligned with global standards?",
+        "answer": "Yes. Our governance frameworks are designed to align with international standards such as ISO and GDPR, ensuring compliance and credibility. We integrate proven governance practices with practical execution models to safeguard organizational integrity."
+      },
+      {
+        "question": "How do you ensure risk management in projects?",
+        "answer": "We use proactive alerts, Balanced Scorecards, and governance dashboards to identify risks early. Continuous monitoring and milestone reviews ensure that risks are mitigated before they impact outcomes."
+      },
+      {
+        "question": "How do you ensure confidentiality and data security in client projects?",
+        "answer": "We follow industry standards and proven governance practices to safeguard client information. Our founders’ corporate experience ensures strict adherence to confidentiality, compliance, and secure handling of sensitive data. Where applicable, we align with recognized certifications and frameworks to reinforce trust."
+      }
+    ]
+  }
+]

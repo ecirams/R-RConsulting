@@ -1,0 +1,122 @@
+/* ============================================
+   FAQ Section Styles
+   ============================================ */
+.faq {
+    padding: 5rem 0;
+    background-color: var(--light-bg);
+}
+
+.faq-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-category {
+    margin-bottom: 1.5rem;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-category:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.faq-category-header {
+    padding: 1.5rem;
+    background: var(--white);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    user-select: none;
+}
+
+.faq-category-header:hover {
+    background-color: #f1f5f9;
+}
+
+.faq-category-header h3 {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    color: var(--primary-blue);
+}
+
+.faq-category.active .faq-category-header {
+    border-bottom: 1px solid var(--border-color);
+    background-color: #f8fafc;
+}
+
+.faq-category.active .faq-category-header h3 {
+    color: var(--accent-orange);
+}
+
+.faq-questions {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    background-color: var(--white);
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-question {
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: color 0.3s ease, background-color 0.3s ease;
+    user-select: none;
+}
+
+.faq-question:hover {
+    color: var(--secondary-blue);
+    background-color: #f8fafc;
+}
+
+.faq-item.active .faq-question {
+    color: var(--accent-orange);
+    background-color: #f1f5f9;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    background-color: #fdfdfd;
+    color: var(--text-light);
+    line-height: 1.7;
+    transition: max-height 0.3s ease-out, padding 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    border-top: 1px dotted var(--border-color);
+    max-height: 500px;
+}
+
+/* Icons */
+.icon-toggle,
+.icon-toggle-sm {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--text-light);
+    transition: transform 0.3s ease;
+}
+
+.active .icon-toggle,
+.active .icon-toggle-sm {
+    color: var(--accent-orange);
+}
