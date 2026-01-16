@@ -298,7 +298,7 @@ if (downloadForm) {
     // Proceed with download flow and UI feedback.
 
     showNotification(
-      "Thanks! Your capability statement is downloading now.",
+      "Thanks! Your One Pager Document is downloading now.",
       "success"
     );
 
